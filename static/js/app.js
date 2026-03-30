@@ -159,6 +159,17 @@ async function loadAll() {
   }
 }
 
+async function refreshApp() {
+  await loadAll();
+  const page = State.currentPage;
+  if (page === 'dashboard') loadDashboard();
+  else if (page === 'invoices') renderInvoiceTable();
+  else if (page === 'summary') loadSummary();
+  else if (page === 'export') {
+    if (typeof updateExportPreview === 'function') updateExportPreview();
+  }
+}
+
 async function loadDashboard() {
   try {
     const res = await API.get('/dashboard');
@@ -744,12 +755,11 @@ async function recategorize(id) {
   const res = await API.post(`/invoices/${id}/recategorize`, { category: cat });
   if (res.success) {
     toast('Category Updated', `Recategorized to: ${cat}`, 'success');
-    await loadAll();
-    renderInvoiceTable();
     $('#modal-detail').classList.remove('open');
   } else {
     toast('Error', res.error, 'error');
   }
+  await refreshApp();
 }
 
 async function deleteInvoice(id) {
@@ -764,11 +774,9 @@ async function deleteInvoice(id) {
   if (res.success) {
     toast('Deleted', 'Invoice removed', 'success');
   } else {
-    // Revert on failure
     toast('Error', res.error, 'error');
-    await loadAll();
-    renderInvoiceTable();
   }
+  await refreshApp();
 }
 
 async function bulkDeleteInvoices() {
@@ -793,14 +801,11 @@ async function bulkDeleteInvoices() {
       toast('Deleted', `${res.deleted} invoice(s) removed`, 'success');
     } else {
       toast('Error', res.error, 'error');
-      await loadAll();
-      renderInvoiceTable();
     }
   } catch (e) {
     toast('Error', e.message, 'error');
-    await loadAll();
-    renderInvoiceTable();
   }
+  await refreshApp();
 }
 
 function updateBulkBar() {
@@ -897,7 +902,7 @@ async function processUpload(files) {
         `${res.failed ? `${res.failed} failed. ` : ''}${dups ? `${dups} duplicate(s) detected.` : ''}`,
         res.successful ? 'success' : 'error'
       );
-      await loadAll();
+      await refreshApp();
     } else {
       statusText.textContent = 'Upload failed';
       toast('Upload Failed', res.error, 'error');
@@ -939,7 +944,7 @@ async function loadSampleData() {
     if (data.success) {
       const ok = data.results?.filter(r => r.success).length || 0;
       toast('Sample Data Loaded', `${ok} invoices processed successfully`, 'success');
-      await loadAll();
+      await refreshApp();
       navigate('dashboard');
     } else {
       toast('Error', data.error, 'error');
@@ -1400,7 +1405,7 @@ async function saveCreatedInvoice() {
     const res = await API.post('/create-invoice/save', { invoice: State.createdInvoice });
     if (res.success) {
       toast('Saved to Library', 'Invoice added to your invoice library.', 'success');
-      await loadAll();
+      await refreshApp();
     } else {
       toast('Error', res.error || 'Could not save invoice', 'error');
     }
@@ -1415,8 +1420,7 @@ async function clearAllData() {
   const res = await API.post('/clear', {});
   if (res.success) {
     toast('Cleared', 'All invoice data removed', 'success');
-    await loadAll();
-    renderInvoiceTable();
+    await refreshApp();
   }
 }
 
@@ -1461,7 +1465,6 @@ async function init() {
   initUploadZone();
   await loadAll();
   navigate('dashboard');
-  loadDashboard();
 }
 
 document.addEventListener('DOMContentLoaded', init);

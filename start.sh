@@ -1,7 +1,7 @@
 #!/bin/bash
 # InvoiceIQ — Start the app via supervisord
 
-APP_DIR=/workspace/invoiceiq
+APP_DIR=/workspace/InvoiceIQ
 CONF=$APP_DIR/_superninja_startup.conf
 
 # Register with supervisord if not already known

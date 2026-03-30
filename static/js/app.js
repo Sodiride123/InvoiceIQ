@@ -919,11 +919,16 @@ async function loadSampleData() {
   if (_loadingSamples) return;
   _loadingSamples = true;
 
+  // Immediate feedback
+  toast('Loading Samples', 'Generating and processing 16 invoices...', 'info');
+
   // Disable all buttons that trigger this
   const allBtns = $$('[onclick*="loadSampleData"]');
   const saved = allBtns.map(b => ({ el: b, html: b.innerHTML }));
   allBtns.forEach(b => {
     b.disabled = true;
+    b.style.opacity = '0.6';
+    b.style.pointerEvents = 'none';
     b.innerHTML = '<span class="spinner"></span> Loading\u2026';
   });
 
@@ -945,6 +950,8 @@ async function loadSampleData() {
     _loadingSamples = false;
     saved.forEach(({ el, html }) => {
       el.disabled = false;
+      el.style.opacity = '';
+      el.style.pointerEvents = '';
       el.innerHTML = html;
     });
   }

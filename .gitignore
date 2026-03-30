@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.claude/
+data/invoices.json
+exports/*.csv
+generated/*.pdf
+uploads/*.pdf
+uploads/*.png
+uploads/*.jpg
+uploads/*.jpeg
+uploads/*.tiff
+uploads/*.bmp
+uploads/*.webp
+*.log

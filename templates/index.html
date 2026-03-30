@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InvoiceIQ — AI-Powered Invoicing</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://sites.super.betamyninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ══════════════════════════════════════════════
+       SIDEBAR
+       ══════════════════════════════════════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+      </div>
+      <div>
+        <div class="logo-text">InvoiceIQ</div>
+        <span class="logo-tagline">AI-Powered Invoicing</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Main</div>
+
+      <div class="nav-item active" data-page="dashboard">
+        <span class="nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </span>
+        <span>Dashboard</span>
+      </div>
+
+      <div class="nav-item" data-page="create">
+        <span class="nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
+        </span>
+        <span>Create Invoice</span>
+      </div>
+
+      <div class="nav-item" data-page="upload">
+        <span class="nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </span>
+        <span>Upload Invoices</span>
+      </div>
+
+      <div class="nav-item" data-page="invoices">
+        <span class="nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+        </span>
+        <span>All Invoices</span>
+        <span class="nav-badge" id="badge-invoices" style="display:none">0</span>
+      </div>
+
+      <div class="nav-section-title">Analytics</div>
+
+      <div class="nav-item" data-page="summary">
+        <span class="nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </span>
+        <span>Monthly Summary</span>
+      </div>
+
+      <div class="nav-item" data-page="export">
+        <span class="nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </span>
+        <span>Export & Reports</span>
+      </div>
+
+      <div class="nav-section-title" style="margin-top:12px">Alerts</div>
+      <div class="nav-item" id="dup-nav-item">
+        <span class="nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </span>
+        <span>Duplicates</span>
+        <span class="nav-badge danger" id="badge-duplicates" style="display:none">0</span>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="version">InvoiceIQ v2.0 &middot; AI-Powered</div>
+    </div>
+  </aside>
+
+  <!-- ══════════════════════════════════════════════
+       MAIN CONTENT
+       ══════════════════════════════════════════════ -->
+  <main class="main-content">
+
+    <!-- Top Header -->
+    <header class="top-header">
+      <div class="header-left">
+        <h1 id="page-title">Dashboard</h1>
+        <p id="page-subtitle">Overview of your invoice data</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-outline btn-sm" onclick="loadSampleData()" id="btn-load-samples">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 3h15"/><path d="M6 3v10l-3 6h18l-3-6V3"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+          Load Sample Data
+        </button>
+        <button class="btn btn-primary btn-sm" onclick="navigate('create')">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
+          Create Invoice
+        </button>
+        <button class="btn btn-outline btn-sm" onclick="navigate('upload')">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Upload Invoice
+        </button>
+      </div>
+    </header>
+
+    <div class="page-content">
+
+      <!-- ═══════════════════════════════════════════
+           PAGE: DASHBOARD
+           ═══════════════════════════════════════════ -->
+      <div class="page active" id="page-dashboard">
+
+        <!-- Stat Cards -->
+        <div class="stats-grid">
+
+          <div class="stat-card">
+            <div class="stat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div class="stat-value" id="stat-total">$0</div>
+            <div class="stat-label">Total Expenses</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon cyan">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+            <div class="stat-value" id="stat-invoices">0</div>
+            <div class="stat-label">Invoices Processed</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon green">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </div>
+            <div class="stat-value" id="stat-avg">$0</div>
+            <div class="stat-label">Avg Invoice Value</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon amber">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <div class="stat-value" id="stat-tax">$0</div>
+            <div class="stat-label">Total Tax Paid</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon red">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <div class="stat-value" id="stat-dups" style="color:var(--danger)">0</div>
+            <div class="stat-label">Duplicates Flagged</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon purple">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+            </div>
+            <div class="stat-value" id="stat-largest">$0</div>
+            <div class="stat-label">Largest Invoice</div>
+          </div>
+
+        </div>
+
+        <!-- Monthly Trend Chart -->
+        <div class="charts-grid" style="margin-bottom:24px">
+          <div class="card chart-full">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="card-title-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </span>
+                Monthly Spending Trend
+              </div>
+              <span style="font-size:12px;color:var(--text-muted)">Bars = spend &nbsp;&middot;&nbsp; Line = invoice count</span>
+            </div>
+            <div class="chart-container" style="height:260px">
+              <canvas id="chart-monthly"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category + Vendor Charts -->
+        <div class="charts-grid" style="margin-bottom:24px">
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="card-title-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                </span>
+                Spend by Category
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:center">
+              <div class="chart-container" style="height:220px"><canvas id="chart-category"></canvas></div>
+              <div id="category-legend" class="category-legend"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="card-title-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20"/><path d="M9 22V12h6v10"/><path d="M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01"/></svg>
+                </span>
+                Top Vendors
+              </div>
+            </div>
+            <div class="chart-container" style="height:260px"><canvas id="chart-vendors"></canvas></div>
+          </div>
+
+        </div>
+
+        <!-- Recent Invoices -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="card-title-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </span>
+              Recently Processed
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="navigate('invoices')">
+              View All
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+          <div class="table-wrap" id="recent-invoices">
+            <div class="empty-state">
+              <div class="empty-state-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--dark-muted)"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              </div>
+              <h3>No invoices yet</h3>
+              <p>Upload invoices or load sample data to see your dashboard come alive.</p>
+              <div style="display:flex;gap:10px;justify-content:center">
+                <button class="btn btn-primary" onclick="navigate('upload')">Upload Invoice</button>
+                <button class="btn btn-outline" onclick="loadSampleData()">Load Sample Data</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /page-dashboard -->
+
+
+      <!-- ═══════════════════════════════════════════
+           PAGE: CREATE INVOICE (AI)
+           ═══════════════════════════════════════════ -->
+      <div class="page" id="page-create">
+
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+          <div class="step active" id="step-describe">
+            <span class="step-num">1</span>
+            <span>Describe</span>
+          </div>
+          <div class="step" id="step-preview">
+            <span class="step-num">2</span>
+            <span>Preview & Edit</span>
+          </div>
+          <div class="step" id="step-download">
+            <span class="step-num">3</span>
+            <span>Download</span>
+          </div>
+        </div>
+
+        <!-- Step 1: Describe -->
+        <div id="create-step-describe">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+
+            <div>
+              <div class="card" style="margin-bottom:20px">
+                <div class="card-title" style="margin-bottom:16px">
+                  <span class="card-title-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                  </span>
+                  Describe Your Services
+                </div>
+                <textarea class="create-textarea" id="create-description"
+                  placeholder="Describe what you want to invoice. For example:&#10;&#10;I built a React website for Acme Corp over 2 weeks. 80 hours of development at $150/hr, plus hosting setup for $500. Client address is 123 Main St, New York, NY 10001. Apply 8% sales tax."></textarea>
+                <div style="font-size:11px;color:var(--text-muted);margin-top:8px">
+                  Tip: Include client name, services, hours/quantities, rates, and any tax info for best results.
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-title" style="margin-bottom:16px">
+                  <span class="card-title-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                  </span>
+                  Optional Settings
+                </div>
+                <div style="display:flex;flex-direction:column;gap:14px">
+                  <div class="form-group">
+                    <label>Your Business Name</label>
+                    <input type="text" class="form-input" id="create-from-name" placeholder="e.g. Acme Consulting LLC">
+                  </div>
+                  <div class="form-group">
+                    <label>Your Business Address</label>
+                    <input type="text" class="form-input" id="create-from-address" placeholder="e.g. 456 Business Ave, City, ST 12345">
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label>Tax Rate (%)</label>
+                      <input type="number" class="form-input" id="create-tax-rate" placeholder="0" min="0" max="100" step="0.5">
+                    </div>
+                    <div class="form-group">
+                      <label>PDF Template</label>
+                      <select class="form-input" id="create-template">
+                        <option value="professional">Professional</option>
+                        <option value="modern">Modern (Emerald)</option>
+                        <option value="minimal">Minimal</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn btn-primary" id="btn-generate-invoice"
+                onclick="generateInvoice()"
+                style="width:100%;justify-content:center;margin-top:20px;padding:14px 24px;font-size:15px">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                Generate Invoice with AI
+              </button>
+            </div>
+
+            <!-- Right: Info -->
+            <div>
+              <div class="card" style="margin-bottom:20px">
+                <div class="card-title" style="margin-bottom:16px">
+                  <span class="card-title-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  </span>
+                  AI-Powered Generation
+                </div>
+                <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:16px">
+                  Simply describe your services in plain English and our AI will generate a
+                  <strong style="color:var(--text-primary)">complete, professional invoice</strong> with:
+                </p>
+                <div style="display:flex;flex-direction:column;gap:12px">
+                  <div style="display:flex;gap:10px;align-items:flex-start;font-size:13px">
+                    <div style="width:28px;height:28px;border-radius:7px;background:rgba(5,150,105,0.1);color:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                    </div>
+                    <div><strong style="color:var(--text-primary)">Smart Line Items</strong><br><span style="color:var(--text-muted)">Auto-generates detailed line items with quantities and rates</span></div>
+                  </div>
+                  <div style="display:flex;gap:10px;align-items:flex-start;font-size:13px">
+                    <div style="width:28px;height:28px;border-radius:7px;background:rgba(245,158,11,0.1);color:var(--warning);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <div><strong style="color:var(--text-primary)">Precise Calculations</strong><br><span style="color:var(--text-muted)">Accurate subtotals, tax, and grand total</span></div>
+                  </div>
+                  <div style="display:flex;gap:10px;align-items:flex-start;font-size:13px">
+                    <div style="width:28px;height:28px;border-radius:7px;background:rgba(6,182,212,0.1);color:var(--secondary);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    </div>
+                    <div><strong style="color:var(--text-primary)">PDF Download</strong><br><span style="color:var(--text-muted)">3 professional templates to choose from</span></div>
+                  </div>
+                  <div style="display:flex;gap:10px;align-items:flex-start;font-size:13px">
+                    <div style="width:28px;height:28px;border-radius:7px;background:rgba(239,68,68,0.1);color:var(--danger);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </div>
+                    <div><strong style="color:var(--text-primary)">Fully Editable</strong><br><span style="color:var(--text-muted)">Review and edit everything before downloading</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-title" style="margin-bottom:12px">
+                  <span class="card-title-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                  </span>
+                  Example Descriptions
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <div class="example-prompt" onclick="fillExample(this)" style="cursor:pointer;padding:10px 12px;background:var(--dark);border:1px solid var(--dark-border);border-radius:8px;font-size:12px;color:var(--text-secondary);line-height:1.5;transition:all 0.15s"
+                    data-text="I provided 40 hours of web development consulting to TechStart Inc at $125/hour. Also set up their cloud infrastructure on AWS for a flat fee of $2,000. Their address is 789 Innovation Blvd, San Francisco, CA 94105. Payment due in 15 days.">
+                    <strong style="color:var(--text-primary)">Web Development Consulting</strong><br>
+                    40 hours at $125/hr + cloud setup
+                  </div>
+                  <div class="example-prompt" onclick="fillExample(this)" style="cursor:pointer;padding:10px 12px;background:var(--dark);border:1px solid var(--dark-border);border-radius:8px;font-size:12px;color:var(--text-secondary);line-height:1.5;transition:all 0.15s"
+                    data-text="Graphic design work for Brand Co: Logo redesign $3,500, Brand guidelines document $1,200, Social media template pack (10 templates) at $150 each, and business card design $400. Apply 7% tax.">
+                    <strong style="color:var(--text-primary)">Graphic Design Package</strong><br>
+                    Logo, branding, social media templates
+                  </div>
+                  <div class="example-prompt" onclick="fillExample(this)" style="cursor:pointer;padding:10px 12px;background:var(--dark);border:1px solid var(--dark-border);border-radius:8px;font-size:12px;color:var(--text-secondary);line-height:1.5;transition:all 0.15s"
+                    data-text="Monthly retainer for marketing services to GreenLeaf Organics. Social media management $2,500/month, SEO optimization $1,800/month, Email campaign management $1,200/month, Content writing 8 blog posts at $250 each. This is for March 2026.">
+                    <strong style="color:var(--text-primary)">Marketing Retainer</strong><br>
+                    Social media, SEO, email campaigns
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 1.5: AI Loading -->
+        <div id="create-step-loading" style="display:none">
+          <div class="card">
+            <div class="ai-loading">
+              <div class="spinner-lg"></div>
+              <h3>Generating Your Invoice...</h3>
+              <p>Our AI is creating a detailed, professional invoice from your description. This may take up to 60 seconds.</p>
+              <div style="display:flex;gap:6px;margin-top:8px">
+                <div style="width:6px;height:6px;border-radius:50%;background:var(--primary);animation:pulse 1.5s ease-in-out infinite"></div>
+                <div style="width:6px;height:6px;border-radius:50%;background:var(--primary);animation:pulse 1.5s ease-in-out 0.3s infinite"></div>
+                <div style="width:6px;height:6px;border-radius:50%;background:var(--primary);animation:pulse 1.5s ease-in-out 0.6s infinite"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Preview & Edit -->
+        <div id="create-step-preview" style="display:none">
+          <div id="invoice-preview-container"></div>
+          <div class="preview-actions">
+            <button class="btn btn-outline" onclick="backToDescribe()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+              Back to Edit Description
+            </button>
+            <button class="btn btn-primary" onclick="downloadInvoicePdf()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF
+            </button>
+            <button class="btn btn-success" onclick="saveCreatedInvoice()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              Save to Library
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Success -->
+        <div id="create-step-success" style="display:none">
+          <div class="card" style="text-align:center;padding:48px">
+            <div style="width:64px;height:64px;border-radius:50%;background:rgba(5,150,105,0.1);color:var(--primary-light);display:flex;align-items:center;justify-content:center;margin:0 auto 20px">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <h2 style="font-size:22px;font-weight:800;margin-bottom:8px">Invoice Created Successfully!</h2>
+            <p style="color:var(--text-muted);margin-bottom:24px">Your invoice has been generated and is ready to download.</p>
+            <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+              <button class="btn btn-primary" onclick="downloadInvoicePdf()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download PDF Again
+              </button>
+              <button class="btn btn-outline" onclick="resetCreateInvoice()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
+                Create Another Invoice
+              </button>
+              <button class="btn btn-outline" onclick="navigate('invoices')">
+                View All Invoices
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /page-create -->
+
+
+      <!-- ═══════════════════════════════════════════
+           PAGE: UPLOAD
+           ═══════════════════════════════════════════ -->
+      <div class="page" id="page-upload">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+
+          <!-- Upload Zone -->
+          <div>
+            <div class="card" style="margin-bottom:20px">
+              <div class="card-title" style="margin-bottom:20px">
+                <span class="card-title-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                </span>
+                Upload Invoice Files
+              </div>
+
+              <div class="upload-zone" id="upload-zone">
+                <input type="file" id="file-input" multiple
+                       accept=".pdf,.png,.jpg,.jpeg,.tiff,.bmp,.webp"
+                       style="display:none">
+                <div class="upload-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+                </div>
+                <div class="upload-title">Drop files here or click to browse</div>
+                <div class="upload-subtitle">Supports PDF, PNG, JPG, TIFF, BMP, WebP &middot; Max 20 MB per file</div>
+                <div class="upload-formats">
+                  <span class="format-badge">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    PDF
+                  </span>
+                  <span class="format-badge">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    PNG
+                  </span>
+                  <span class="format-badge">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    JPG
+                  </span>
+                  <span class="format-badge">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    TIFF
+                  </span>
+                </div>
+                <div class="upload-progress" id="upload-progress" style="margin-top:16px">
+                  <div class="progress-bar-wrap">
+                    <div class="progress-bar" id="upload-progress-bar"></div>
+                  </div>
+                  <div class="upload-status-text" id="upload-status">Processing&hellip;</div>
+                </div>
+              </div>
+            </div>
+            <div id="upload-results"></div>
+          </div>
+
+          <!-- Info Panel -->
+          <div>
+            <div class="card" style="margin-bottom:20px">
+              <div class="card-title" style="margin-bottom:16px">
+                <span class="card-title-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 3h15"/><path d="M6 3v10l-3 6h18l-3-6V3"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+                </span>
+                Quick Start with Sample Data
+              </div>
+              <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;line-height:1.7">
+                Load a curated set of <strong style="color:var(--text-primary)">16 realistic sample invoices</strong> covering
+                AWS, Adobe, Delta Airlines, Slack, Marriott, McKinsey, Dell, and more —
+                including intentional duplicates to demonstrate detection.
+              </p>
+              <button class="btn btn-success" onclick="loadSampleData()" style="width:100%;justify-content:center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 3h15"/><path d="M6 3v10l-3 6h18l-3-6V3"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+                Load 16 Sample Invoices
+              </button>
+            </div>
+
+            <div class="card">
+              <div class="card-title" style="margin-bottom:16px">
+                <span class="card-title-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                </span>
+                What Gets Extracted
+              </div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+
+                <div style="display:flex;gap:12px;align-items:flex-start;font-size:13px">
+                  <div style="width:30px;height:30px;border-radius:8px;background:rgba(5,150,105,0.1);color:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20"/><path d="M9 22V12h6v10"/><path d="M8 6h.01M12 6h.01M16 6h.01"/></svg>
+                  </div>
+                  <div><strong style="color:var(--text-primary)">Vendor Name</strong><br><span style="color:var(--text-muted)">Company or supplier name from header</span></div>
+                </div>
+
+                <div style="display:flex;gap:12px;align-items:flex-start;font-size:13px">
+                  <div style="width:30px;height:30px;border-radius:8px;background:rgba(6,182,212,0.1);color:var(--secondary);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  </div>
+                  <div><strong style="color:var(--text-primary)">Invoice Date</strong><br><span style="color:var(--text-muted)">Issue date, normalized to YYYY-MM-DD</span></div>
+                </div>
+
+                <div style="display:flex;gap:12px;align-items:flex-start;font-size:13px">
+                  <div style="width:30px;height:30px;border-radius:8px;background:rgba(16,185,129,0.1);color:var(--success);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                  </div>
+                  <div><strong style="color:var(--text-primary)">Line Items</strong><br><span style="color:var(--text-muted)">Description and amount per line item</span></div>
+                </div>
+
+                <div style="display:flex;gap:12px;align-items:flex-start;font-size:13px">
+                  <div style="width:30px;height:30px;border-radius:8px;background:rgba(245,158,11,0.1);color:var(--warning);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  </div>
+                  <div><strong style="color:var(--text-primary)">Totals & Tax</strong><br><span style="color:var(--text-muted)">Subtotal, tax amount, grand total</span></div>
+                </div>
+
+                <div style="display:flex;gap:12px;align-items:flex-start;font-size:13px">
+                  <div style="width:30px;height:30px;border-radius:8px;background:rgba(5,150,105,0.1);color:#6ee7b7;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                  </div>
+                  <div><strong style="color:var(--text-primary)">Auto Category</strong><br><span style="color:var(--text-muted)">10 expense categories, auto-assigned</span></div>
+                </div>
+
+                <div style="display:flex;gap:12px;align-items:flex-start;font-size:13px">
+                  <div style="width:30px;height:30px;border-radius:8px;background:rgba(239,68,68,0.1);color:var(--danger);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                  </div>
+                  <div><strong style="color:var(--text-primary)">Duplicate Detection</strong><br><span style="color:var(--text-muted)">Flags duplicate vendor + date + amount combos</span></div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div><!-- /page-upload -->
+
+
+      <!-- ═══════════════════════════════════════════
+           PAGE: ALL INVOICES
+           ═══════════════════════════════════════════ -->
+      <div class="page" id="page-invoices">
+
+        <!-- Bulk Action Bar -->
+        <div id="bulk-action-bar" style="display:none;align-items:center;gap:12px;padding:10px 16px;
+          background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:10px;
+          margin-bottom:16px">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span id="bulk-count" style="font-size:13px;font-weight:600;color:var(--text-primary)">0 selected</span>
+          <div style="flex:1"></div>
+          <button class="btn btn-outline btn-sm" onclick="$$('.row-check').forEach(c=>{c.checked=false});$('#check-all').checked=false;updateBulkBar()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Deselect All
+          </button>
+          <button class="btn btn-danger btn-sm" onclick="bulkDeleteInvoices()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+            Delete Selected
+          </button>
+        </div>
+
+        <div class="filter-bar">
+          <div class="search-input-wrap">
+            <span class="search-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </span>
+            <input type="text" class="search-input" id="search-invoices" placeholder="Search vendor, invoice number, category&hellip;">
+          </div>
+          <select class="filter-select" id="filter-category">
+            <option value="">All Categories</option>
+          </select>
+          <select class="filter-select" id="filter-duplicate">
+            <option value="">All Statuses</option>
+            <option value="no">Valid Only</option>
+            <option value="yes">Duplicates Only</option>
+          </select>
+          <span id="invoice-count" style="font-size:12px;color:var(--text-muted);white-space:nowrap;margin-left:4px"></span>
+          <button class="btn btn-outline btn-sm" id="btn-clear-filters">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Clear
+          </button>
+        </div>
+
+        <div class="card" style="padding:0;overflow:hidden">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:36px"><input type="checkbox" id="check-all" onchange="$$('.row-check').forEach(c=>c.checked=this.checked);updateBulkBar()"></th>
+                  <th class="sortable" data-sort="vendor" onclick="setSort('vendor')">Vendor</th>
+                  <th class="sortable" data-sort="date" onclick="setSort('date')">Date</th>
+                  <th>Category</th>
+                  <th class="sortable" data-sort="subtotal" onclick="setSort('subtotal')">Subtotal</th>
+                  <th class="sortable" data-sort="tax" onclick="setSort('tax')">Tax</th>
+                  <th class="sortable" data-sort="total" onclick="setSort('total')">Total</th>
+                  <th>Terms</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="invoice-tbody">
+                <tr><td colspan="10">
+                  <div class="empty-state">
+                    <div class="empty-state-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--dark-muted)"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    </div>
+                    <h3>No invoices yet</h3>
+                    <p>Upload invoices or load sample data to get started.</p>
+                    <button class="btn btn-primary" onclick="navigate('upload')">Upload Now</button>
+                  </div>
+                </td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div><!-- /page-invoices -->
+
+
+      <!-- ═══════════════════════════════════════════
+           PAGE: MONTHLY SUMMARY
+           ═══════════════════════════════════════════ -->
+      <div class="page" id="page-summary">
+
+        <div class="stats-grid" style="margin-bottom:24px">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div class="stat-value" id="sum-total">$0</div>
+            <div class="stat-label">Total Spend (Valid)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon cyan">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="stat-value" id="sum-count">0</div>
+            <div class="stat-label">Valid Invoices</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon amber">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+            </div>
+            <div class="stat-value" id="sum-tax">$0</div>
+            <div class="stat-label">Total Tax</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </div>
+            <div class="stat-value" id="sum-avg">$0</div>
+            <div class="stat-label">Average Invoice</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:24px">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="card-title-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              </span>
+              Monthly Spend Trend
+            </div>
+          </div>
+          <div class="chart-container" style="height:240px">
+            <canvas id="chart-sum-monthly"></canvas>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px">
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="card-title-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </span>
+                Month by Month
+              </div>
+            </div>
+            <div class="month-grid" id="month-grid">
+              <p style="color:var(--text-muted);font-size:13px">Loading&hellip;</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="card-title-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20"/><path d="M9 22V12h6v10"/></svg>
+                </span>
+                Top Vendors
+              </div>
+            </div>
+            <ul class="vendor-list" id="vendor-list"></ul>
+          </div>
+
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="card-title-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+              </span>
+              Spend by Category
+            </div>
+            <a href="/api/export/csv" class="btn btn-primary btn-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export CSV
+            </a>
+          </div>
+          <div id="category-spend"></div>
+        </div>
+
+      </div><!-- /page-summary -->
+
+
+      <!-- ═══════════════════════════════════════════
+           PAGE: EXPORT & REPORTS
+           ═══════════════════════════════════════════ -->
+      <div class="page" id="page-export">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+
+          <div>
+            <div class="card" style="margin-bottom:20px">
+              <div class="card-title" style="margin-bottom:20px">
+                <span class="card-title-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </span>
+                Export Data
+              </div>
+
+              <div style="display:flex;flex-direction:column;gap:14px">
+
+                <div style="background:var(--dark);border:1px solid var(--dark-border);border-radius:10px;padding:18px">
+                  <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px">
+                    <div class="export-icon green">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/><line x1="12" y1="13" x2="12" y2="17"/></svg>
+                    </div>
+                    <div>
+                      <div style="font-weight:700;color:var(--text-primary)">CSV Export</div>
+                      <div style="font-size:12px;color:var(--text-muted)">All invoice fields in spreadsheet format</div>
+                    </div>
+                  </div>
+                  <a href="/api/export/csv" class="btn btn-success" style="width:100%;justify-content:center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Download CSV
+                  </a>
+                </div>
+
+                <div style="background:var(--dark);border:1px solid var(--dark-border);border-radius:10px;padding:18px">
+                  <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px">
+                    <div class="export-icon blue">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M10 12a1 1 0 0 0-1 1v1a1 1 0 0 1-1 1 1 1 0 0 1 1 1v1a1 1 0 0 0 1 1"/><path d="M14 18a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1 1 1 0 0 1-1-1v-1a1 1 0 0 0-1-1"/></svg>
+                    </div>
+                    <div>
+                      <div style="font-weight:700;color:var(--text-primary)">JSON Export</div>
+                      <div style="font-size:12px;color:var(--text-muted)">Full structured data with all fields</div>
+                    </div>
+                  </div>
+                  <a href="/api/export/json" class="btn btn-outline" style="width:100%;justify-content:center" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    View JSON
+                  </a>
+                </div>
+
+                <div style="background:var(--dark);border:1px solid var(--dark-border);border-radius:10px;padding:18px">
+                  <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px">
+                    <div class="export-icon purple">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                    </div>
+                    <div>
+                      <div style="font-weight:700;color:var(--text-primary)">Dashboard Slide</div>
+                      <div style="font-size:12px;color:var(--text-muted)">Visual summary as a printable HTML slide</div>
+                    </div>
+                  </div>
+                  <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="openDashboardSlide()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                    Generate Slide
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Data Management -->
+          <div>
+            <div class="card" style="margin-bottom:20px">
+              <div class="card-title" style="margin-bottom:16px">
+                <span class="card-title-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                </span>
+                Data Management
+              </div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+
+                <div style="background:var(--dark);border:1px solid var(--dark-border);border-radius:10px;padding:16px">
+                  <div style="font-weight:600;color:var(--text-primary);margin-bottom:3px;font-size:13px">Reload Sample Data</div>
+                  <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">Re-process all 16 built-in sample invoices</div>
+                  <button class="btn btn-outline btn-sm" onclick="loadSampleData()" style="width:100%;justify-content:center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                    Reload Samples
+                  </button>
+                </div>
+
+                <div style="background:var(--dark);border:1px solid rgba(239,68,68,0.25);border-radius:10px;padding:16px">
+                  <div style="font-weight:600;color:var(--danger);margin-bottom:3px;font-size:13px">Clear All Data</div>
+                  <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">Remove all processed invoices permanently</div>
+                  <button class="btn btn-danger btn-sm" onclick="clearAllData()" style="width:100%;justify-content:center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+                    Clear All Invoices
+                  </button>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title" style="margin-bottom:16px">
+                <span class="card-title-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                </span>
+                Export Preview
+              </div>
+              <div style="display:flex;flex-direction:column;gap:2px;font-size:13px">
+                <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--dark-border)">
+                  <span style="color:var(--text-muted)">Total Invoices</span>
+                  <span id="exp-count" style="font-weight:700;color:var(--text-primary)">—</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--dark-border)">
+                  <span style="color:var(--text-muted)">Valid Invoices</span>
+                  <span id="exp-valid" style="font-weight:700;color:var(--success)">—</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--dark-border)">
+                  <span style="color:var(--text-muted)">Duplicates</span>
+                  <span id="exp-dups" style="font-weight:700;color:var(--danger)">—</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;padding:9px 0">
+                  <span style="color:var(--text-muted)">Grand Total</span>
+                  <span id="exp-total" style="font-weight:800;color:var(--success);font-size:16px">—</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Slide Preview -->
+        <div class="card" id="slide-preview-card" style="margin-top:24px;display:none">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="card-title-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+              </span>
+              Dashboard Slide Preview
+            </div>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-outline btn-sm" onclick="document.getElementById('slide-preview-card').style.display='none'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                Close
+              </button>
+              <button class="btn btn-primary btn-sm" onclick="printSlide()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                Print / Save PDF
+              </button>
+            </div>
+          </div>
+          <div id="slide-content"></div>
+        </div>
+
+      </div><!-- /page-export -->
+
+    </div><!-- /page-content -->
+  </main>
+
+</div><!-- /app-shell -->
+
+
+<!-- ══════════════════════════════════════════════
+     INVOICE DETAIL MODAL
+     ══════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-detail">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" style="display:flex;align-items:center;gap:8px">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Invoice Details
+      </div>
+      <button class="modal-close" id="modal-close-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="modal-detail-body"></div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toast-container"></div>
+
+<script src="/static/js/app.js"></script>
+<script>
+/* ── Duplicate filter nav ──────────────────────────────────── */
+document.getElementById('dup-nav-item').addEventListener('click', () => {
+  // Show the invoices page
+  State.currentPage = 'invoices';
+  $$('.page').forEach(el => el.classList.toggle('active', el.id === 'page-invoices'));
+  $('#page-title').textContent = 'Duplicates';
+  $('#page-subtitle').textContent = 'Invoices flagged as duplicates';
+  // Set duplicate filter
+  State.filters = { search: '', category: '', duplicate: 'yes' };
+  const searchEl = document.getElementById('search-invoices');
+  const catEl = document.getElementById('filter-category');
+  const dupEl = document.getElementById('filter-duplicate');
+  if (searchEl) searchEl.value = '';
+  if (catEl) catEl.value = '';
+  if (dupEl) dupEl.value = 'yes';
+  renderInvoiceTable();
+  // Highlight only Duplicates nav
+  $$('.nav-item').forEach(el => el.classList.remove('active'));
+  document.getElementById('dup-nav-item').classList.add('active');
+});
+
+document.getElementById('btn-clear-filters').addEventListener('click', () => {
+  State.filters = { search: '', category: '', duplicate: '' };
+  document.getElementById('search-invoices').value = '';
+  document.getElementById('filter-category').value = '';
+  document.getElementById('filter-duplicate').value = '';
+  renderInvoiceTable();
+});
+
+/* ── Export page preview ───────────────────────────────────── */
+async function updateExportPreview() {
+  try {
+    const res = await API.get('/summary');
+    if (res.success) {
+      const s = res.summary.stats;
+      document.getElementById('exp-count').textContent = s.total_invoices;
+      document.getElementById('exp-valid').textContent = s.valid_invoices;
+      document.getElementById('exp-dups').textContent = s.duplicate_count;
+      document.getElementById('exp-total').textContent =
+        new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(s.grand_total);
+    }
+  } catch(e) {}
+}
+
+const _origNavigate = navigate;
+window.navigate = function(page) {
+  _origNavigate(page);
+  if (page === 'export') updateExportPreview();
+};
+
+/* ── Dashboard Slide Generator ─────────────────────────────── */
+async function openDashboardSlide() {
+  const res = await API.get('/dashboard');
+  if (!res.success) return;
+  const s   = res.summary?.stats     || {};
+  const cd  = res.chart_data         || {};
+  const cats = res.summary?.categories || {};
+  const vendors = res.summary?.top_vendors || [];
+  const monthly = res.summary?.monthly    || {};
+
+  const fmtC = n => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n || 0);
+  const catColors = ['#059669','#10b981','#34d399','#6ee7b7','#f59e0b','#ef4444','#06b6d4','#f97316','#a3e635','#14b8a6'];
+  const topCats = Object.entries(cats).sort((a,b) => b[1]-a[1]).slice(0, 6);
+  const catTotal = topCats.reduce((sum, [,v]) => sum + v, 0);
+  const monthEntries = Object.entries(monthly).sort((a,b) => a[0].localeCompare(b[0]));
+  const maxMonth = Math.max(...monthEntries.map(([,v]) => v.total), 1);
+
+  const kpis = [
+    { label: 'Avg Invoice',  value: fmtC(s.avg_invoice),    color: '#34d399' },
+    { label: 'Tax Paid',     value: fmtC(s.total_tax),      color: '#6ee7b7' },
+    { label: 'Duplicates',   value: s.duplicate_count,      color: '#f87171' },
+    { label: 'Largest',      value: fmtC(s.largest_invoice), color: '#fcd34d' },
+  ];
+
+  const slideHtml = `
+    <div id="slide-printable" style="
+      background: linear-gradient(135deg, #0f172a 0%, #052e16 60%, #0f172a 100%);
+      border-radius: 12px; padding: 36px 40px;
+      font-family: 'Inter', system-ui, sans-serif; color: #f1f5f9;
+      position: relative; overflow: hidden; min-height: 500px;">
+
+      <div style="position:absolute;top:-100px;right:-100px;width:500px;height:500px;
+        background:radial-gradient(circle,rgba(5,150,105,0.18) 0%,transparent 70%);pointer-events:none"></div>
+      <div style="position:absolute;bottom:-80px;left:-80px;width:400px;height:400px;
+        background:radial-gradient(circle,rgba(6,182,212,0.08) 0%,transparent 70%);pointer-events:none"></div>
+
+      <!-- Header -->
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+            <div style="width:34px;height:34px;background:linear-gradient(135deg,#059669,#10b981);border-radius:9px;
+              display:flex;align-items:center;justify-content:center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none"
+                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+              </svg>
+            </div>
+            <span style="font-size:15px;font-weight:700;
+              background:linear-gradient(135deg,#34d399,#10b981);
+              -webkit-background-clip:text;-webkit-text-fill-color:transparent">InvoiceIQ</span>
+          </div>
+          <div style="font-size:24px;font-weight:800;color:#f1f5f9;line-height:1.1">Monthly Expense Summary</div>
+          <div style="font-size:12px;color:#64748b;margin-top:5px">
+            Generated ${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}
+          </div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:34px;font-weight:900;color:#10b981">${fmtC(s.grand_total)}</div>
+          <div style="font-size:12px;color:#64748b">${s.valid_invoices} valid invoices processed</div>
+        </div>
+      </div>
+
+      <!-- KPI row -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px">
+        ${kpis.map(k => `
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);
+            border-radius:10px;padding:14px;text-align:center">
+            <div style="font-size:18px;font-weight:800;color:${k.color};margin-bottom:4px">${k.value}</div>
+            <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:0.6px">${k.label}</div>
+          </div>`).join('')}
+      </div>
+
+      <!-- Charts row -->
+      <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-bottom:20px">
+
+        <!-- Monthly bars -->
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:16px">
+          <div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:14px">
+            Monthly Trend
+          </div>
+          <div style="display:flex;gap:4px;align-items:flex-end;height:90px">
+            ${monthEntries.map(([key, v]) => {
+              const pct = Math.max(4, Math.round((v.total / maxMonth) * 100));
+              const [yr, mo] = key.split('-');
+              const label = new Date(yr, mo-1).toLocaleString('default', { month: 'short' });
+              return `
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
+                  <div style="background:linear-gradient(180deg,#059669,#34d399);border-radius:3px 3px 0 0;
+                    width:100%;height:${pct}%" title="${fmtC(v.total)}"></div>
+                  <div style="font-size:9px;color:#475569;white-space:nowrap">${label}</div>
+                </div>`;
+            }).join('')}
+          </div>
+        </div>
+
+        <!-- Top categories -->
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:16px">
+          <div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px">
+            Top Categories
+          </div>
+          ${topCats.map(([cat, val], i) => `
+            <div style="margin-bottom:8px">
+              <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px">
+                <span style="color:#94a3b8">${cat.split(' & ')[0]}</span>
+                <span style="color:#f1f5f9;font-weight:600">${fmtC(val)}</span>
+              </div>
+              <div style="background:rgba(255,255,255,0.07);border-radius:2px;height:4px;overflow:hidden">
+                <div style="background:${catColors[i]};height:100%;
+                  width:${Math.round((val/catTotal)*100)}%;border-radius:2px"></div>
+              </div>
+            </div>`).join('')}
+        </div>
+      </div>
+
+      <!-- Top vendors -->
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:16px">
+        <div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px">
+          Top Vendors by Spend
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(${Math.min(vendors.length, 5)},1fr);gap:8px">
+          ${vendors.slice(0, 5).map(([name, total], i) => `
+            <div style="text-align:center;background:rgba(255,255,255,0.03);border-radius:8px;padding:10px">
+              <div style="font-size:12px;font-weight:700;color:${catColors[i]};margin-bottom:4px">${fmtC(total)}</div>
+              <div style="font-size:10px;color:#64748b;line-height:1.4">${name.length > 18 ? name.slice(0,16)+'…' : name}</div>
+            </div>`).join('')}
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div style="margin-top:16px;display:flex;justify-content:space-between">
+        <div style="font-size:10px;color:#334155">Confidential &middot; Internal Use Only</div>
+        <div style="font-size:10px;color:#334155">InvoiceIQ &middot; Automated Expense Intelligence</div>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('slide-content').innerHTML = slideHtml;
+  document.getElementById('slide-preview-card').style.display = 'block';
+  document.getElementById('slide-preview-card').scrollIntoView({ behavior: 'smooth' });
+}
+
+function printSlide() {
+  var content = document.getElementById('slide-printable') ? document.getElementById('slide-printable').outerHTML : null;
+  if (!content) return;
+  var win = window.open('', '_blank');
+  var head = '<!DOCTYPE html><html><head>'
+    + '<title>InvoiceIQ \u2014 Dashboard Slide</title>'
+    + '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">'
+    + '<style>*{box-sizing:border-box;margin:0;padding:0}body{background:#0f172a;padding:20px;font-family:\'Inter\',sans-serif}@media print{body{padding:0}}</style>'
+    + '</head><body>';
+  var tail = '<scr' + 'ipt>window.onload=function(){setTimeout(function(){window.print();},400);}</scr' + 'ipt>'
+    + '</body></html>';
+  win.document.write(head + content + tail);
+  win.document.close();
+}
+</script>
+</body>
+</html>
